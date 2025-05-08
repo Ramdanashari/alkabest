@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --bg-light: #f9fafb;
+      --text-dark: #111827;
+      --text-light: #6b7280;
+      --info-bg: #EEF2FF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      padding: 40px 20px;
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .info {
+      background-color: var(--info-bg);
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .info b {
+      color: var(--primary);
+    }
+
+    .back-button, .submit-button {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 20px;
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .back-button:hover, .submit-button:hover {
+      background-color: #4338CA;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px 20px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .info {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Instruksi Pembayaran</h2>
+  <div class="info" id="payment-info">
+    <!-- Konten dinamis akan muncul di sini -->
+  </div>
+  <div id="payment-button">
+    <!-- Tombol konfirmasi akan muncul di sini jika bukan COD -->
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const metode = params.get("metode");
+  const container = document.getElementById("payment-info");
+  const buttonDiv = document.getElementById("payment-button");
+
+  let content = "";
+
+  switch (metode) {
+    case "bank":
+      content = `
+        <strong>Bank Transfer</strong><br>
+        Silakan transfer ke rekening berikut:<br><br>
+        <b>Mandiri</b><br>
+        No Rek: <b>1820012971842</b><br>
+        a.n. <b>Ajeng Mia Wiguna</b><br><br>
+        Jumlah: <b>Rp 230.000</b><br><br>
+        Setelah transfer, konfirmasikan pembayaran Anda.
+      `;
+      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button">Konfirmasi Pembayaran</a>`;
+      break;
+
+    case "ewallet":
+      content = `
+        <strong>E-Wallet</strong><br>
+        Silakan transfer atau scan QR ke salah satu akun berikut:<br><br>
+        OVO / GoPay / DANA<br>
+        No HP: <b>0812-2333-9023</b><br>
+        Nama: <b>Ajeng Mia Wiguna</b><br><br>
+        Jumlah: <b>Rp 230.000</b><br><br>
+        Setelah transfer, konfirmasikan pembayaran Anda.
+      `;
+      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button">Konfirmasi Pembayaran</a>`;
+      break;
+
+    case "cod":
+      content = `
+        <strong>Cash on Delivery (COD)</strong><br>
+        Pesanan Anda akan diproses dan dibayar saat barang sampai.<br><br>
+        Mohon siapkan uang pas sebesar <b>Rp 230.000</b> kepada kurir.<br><br>
+
+        <form onsubmit="handleCODConfirm(event)">
+          <label>Nama Penerima *</label>
+          <input type="text" id="nama" required>
+
+          <label>Alamat Lengkap *</label>
+          <textarea id="alamat" required></textarea>
+
+          <label>Nomor HP *</label>
+          <input type="tel" id="telepon" required>
+
+          <button type="submit" class="submit-button">Konfirmasi COD</button>
+        </form>
+      `;
+      break;
+
+    default:
+      content = `
+        <strong>Metode pembayaran tidak ditemukan.</strong><br><br>
+        Silakan kembali dan pilih metode pembayaran terlebih dahulu.
+      `;
+  }
+
+  container.innerHTML = content;
+
+  function handleCODConfirm(e) {
+    e.preventDefault();
+    const nama = document.getElementById("nama").value;
+    const alamat = document.getElementById("alamat").value;
+    const telepon = document.getElementById("telepon").value;
+
+    const message = `Konfirmasi COD:%0ANama: ${nama}%0AAlamat: ${alamat}%0ANomor HP: ${telepon}`;
+    window.open(`https://wa.me/6285722185904?text=${message}`, "_blank");
+  }
+</script>
+
+</body>
+</html>
