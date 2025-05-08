@@ -8,29 +8,37 @@
   <style>
     :root {
       --primary: #3b60ff;
-      --bg: #f8f9fc;
+      --primary-hover: #2e4dd4;
+      --background: #f0f4f8;
       --text: #1f2937;
       --border: #d1d5db;
+      --white: #ffffff;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
+      background-color: var(--background);
       color: var(--text);
-      padding: 40px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
-      max-width: 500px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 32px;
+      background-color: var(--white);
+      max-width: 480px;
+      width: 100%;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 32px;
     }
 
     h2 {
@@ -38,28 +46,33 @@
       margin-bottom: 24px;
       font-size: 22px;
       font-weight: 600;
+      color: var(--primary);
     }
 
-    label {
-      font-weight: 500;
+    form label {
       display: block;
-      margin-bottom: 6px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      margin-top: 16px;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 10px 14px;
-      margin-bottom: 20px;
+      font-size: 15px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 15px;
+      margin-top: 4px;
+      transition: border-color 0.2s;
     }
 
     input[type="file"] {
-      padding: 8px 10px;
+      padding: 8px;
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       outline: none;
       border-color: var(--primary);
     }
@@ -69,33 +82,42 @@
       margin-left: 4px;
     }
 
+    .note {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
     .button {
       display: block;
       width: 100%;
       background-color: var(--primary);
-      color: white;
+      color: var(--white);
       border: none;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       font-size: 16px;
-      cursor: pointer;
       font-weight: 600;
+      margin-top: 28px;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
 
     .button:hover {
-      background-color: #3048e0;
+      background-color: var(--primary-hover);
     }
 
     .footer {
       text-align: center;
-      margin-top: 20px;
       font-size: 13px;
       color: #9ca3af;
+      margin-top: 24px;
     }
 
     .footer img {
-      height: 16px;
+      height: 14px;
       vertical-align: middle;
+      margin-left: 4px;
     }
   </style>
 </head>
@@ -104,15 +126,15 @@
 <div class="container">
   <h2>Konfirmasi Pembayaran</h2>
   <form action="#" method="post" enctype="multipart/form-data">
-    <label for="bukti">Bukti Transfer<span class="required">*</span></label>
-    <input type="text" id="bukti" name="bukti" placeholder="ID Transaksi" required>
+    <label for="bukti">ID Transaksi<span class="required">*</span></label>
+    <input type="text" id="bukti" name="bukti" placeholder="Masukkan ID Transaksi" required>
 
     <label for="nama">Atas Nama Rekening<span class="required">*</span></label>
-    <input type="text" id="nama" name="nama" placeholder="Pemilik Rekening" required>
+    <input type="text" id="nama" name="nama" placeholder="Nama Pemilik Rekening" required>
 
     <label for="transfer_ke">Transfer ke<span class="required">*</span></label>
     <select id="transfer_ke" name="transfer_ke" required>
-      <option value="">-- Pilih Bank --</option>
+      <option value="">-- Pilih Bank / E-Wallet --</option>
       <option value="Mandiri">Mandiri</option>
       <option value="BCA">BCA</option>
       <option value="BNI">BNI</option>
@@ -126,11 +148,11 @@
     <input type="date" id="tanggal" name="tanggal" required>
 
     <label for="jumlah">Jumlah Transfer<span class="required">*</span></label>
-    <input type="number" id="jumlah" name="jumlah" placeholder="Contoh => 10000" required>
+    <input type="number" id="jumlah" name="jumlah" placeholder="Contoh: 10000" required>
 
-    <label for="upload">Upload Bukti Transfer</label>
-    <input type="file" id="upload" name="upload" required accept="image/*">
-    <small>Format: JPG, PNG, PDF. Maksimal 5MB.</small>
+    <label for="upload">Upload Bukti Transfer<span class="required">*</span></label>
+    <input type="file" id="upload" name="upload" required accept="image/*,.pdf">
+    <div class="note">Format: JPG, PNG, PDF. Maksimal 5MB.</div>
 
     <button type="submit" class="button">Kirim</button>
   </form>
