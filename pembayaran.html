@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pembayaran</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     :root {
       --primary: #4F46E5;
@@ -53,7 +55,12 @@
       padding: 20px;
       border-radius: 12px;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .info i {
+      margin-right: 8px;
+      color: var(--primary);
     }
 
     .info b {
@@ -61,7 +68,9 @@
     }
 
     .back-button, .submit-button {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       margin-top: 24px;
       padding: 12px 20px;
       background-color: var(--primary);
@@ -75,7 +84,7 @@
     }
 
     .back-button:hover, .submit-button:hover {
-      background-color: #4338CA;
+        background: linear-gradient(135deg, #6b46c1 0%, #4299e1 100%);
     }
 
     textarea, input {
@@ -91,6 +100,7 @@
     label {
       font-weight: 600;
       display: block;
+      margin-bottom: 5px;
     }
 
     form {
@@ -115,13 +125,9 @@
 <body>
 
 <div class="container">
-  <h2>Instruksi Pembayaran</h2>
-  <div class="info" id="payment-info">
-    <!-- Konten dinamis akan muncul di sini -->
-  </div>
-  <div id="payment-button">
-    <!-- Tombol konfirmasi akan muncul di sini jika bukan COD -->
-  </div>
+  <h2><i class="fas fa-money-bill-wave"></i> Instruksi Pembayaran</h2>
+  <div class="info" id="payment-info"></div>
+  <div id="payment-button"></div>
 </div>
 
 <script>
@@ -135,7 +141,7 @@
   switch (metode) {
     case "bank":
       content = `
-        <strong>Bank Transfer</strong><br>
+        <p><i class="fas fa-university"></i> <strong>Bank Transfer</strong></p>
         Silakan transfer ke rekening berikut:<br><br>
         <b>Mandiri</b><br>
         No Rek: <b>1820012971842</b><br>
@@ -143,12 +149,12 @@
         Jumlah: <b>Rp 230.000</b><br><br>
         Setelah transfer, konfirmasikan pembayaran Anda.
       `;
-      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button">Konfirmasi Pembayaran</a>`;
+      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button"><i class="fas fa-check-circle"></i> Konfirmasi Pembayaran</a>`;
       break;
 
     case "ewallet":
       content = `
-        <strong>E-Wallet</strong><br>
+        <p><i class="fas fa-wallet"></i> <strong>E-Wallet</strong></p>
         Silakan transfer atau scan QR ke salah satu akun berikut:<br><br>
         OVO / GoPay / DANA<br>
         No HP: <b>0812-2333-9023</b><br>
@@ -156,33 +162,33 @@
         Jumlah: <b>Rp 230.000</b><br><br>
         Setelah transfer, konfirmasikan pembayaran Anda.
       `;
-      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button">Konfirmasi Pembayaran</a>`;
+      buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button"><i class="fas fa-check-circle"></i> Konfirmasi Pembayaran</a>`;
       break;
 
     case "cod":
       content = `
-        <strong>Cash on Delivery (COD)</strong><br>
+        <p><i class="fas fa-truck"></i> <strong>Cash on Delivery (COD)</strong></p>
         Pesanan Anda akan diproses dan dibayar saat barang sampai.<br><br>
         Mohon siapkan uang pas sebesar <b>Rp 230.000</b> kepada kurir.<br><br>
 
         <form onsubmit="handleCODConfirm(event)">
-          <label>Nama Penerima *</label>
+          <label><i class="fas fa-user"></i> Nama Penerima *</label>
           <input type="text" id="nama" required>
 
-          <label>Alamat Lengkap *</label>
+          <label><i class="fas fa-map-marker-alt"></i> Alamat Lengkap *</label>
           <textarea id="alamat" required></textarea>
 
-          <label>Nomor HP *</label>
+          <label><i class="fas fa-phone"></i> Nomor HP *</label>
           <input type="tel" id="telepon" required>
 
-          <button type="submit" class="submit-button">Konfirmasi COD</button>
+          <button type="submit" class="submit-button"><i class="fab fa-whatsapp"></i> Konfirmasi COD</button>
         </form>
       `;
       break;
 
     default:
       content = `
-        <strong>Metode pembayaran tidak ditemukan.</strong><br><br>
+        <p><i class="fas fa-exclamation-circle"></i> <strong>Metode pembayaran tidak ditemukan.</strong></p><br>
         Silakan kembali dan pilih metode pembayaran terlebih dahulu.
       `;
   }
