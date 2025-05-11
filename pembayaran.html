@@ -143,9 +143,9 @@
       content = `
         <p><i class="fas fa-university"></i> <strong>Bank Transfer</strong></p>
         Silakan transfer ke rekening berikut:<br><br>
-        <b>Mandiri</b><br>
-        No Rek: <b>1820012971842</b><br>
-        a.n. <b>Ajeng Mia Wiguna</b><br><br>
+        <b>BRI</b><br>
+        No Rek: <b>4403 0102 1448 530</b><br>
+        a.n. <b>Ahmad Fahrudin</b><br><br>
         Jumlah: <b>Rp 230.000</b><br><br>
         Setelah transfer, konfirmasikan pembayaran Anda.
       `;
@@ -156,34 +156,13 @@
       content = `
         <p><i class="fas fa-wallet"></i> <strong>E-Wallet</strong></p>
         Silakan transfer atau scan QR ke salah satu akun berikut:<br><br>
-        OVO / GoPay / DANA<br>
-        No HP: <b>0812-2333-9023</b><br>
-        Nama: <b>Ajeng Mia Wiguna</b><br><br>
+        DANA<br>
+        No HP: <b>085319861116</b><br>
+        Nama: <b>Ajeng Ahmad Fahrudin</b><br><br>
         Jumlah: <b>Rp 230.000</b><br><br>
         Setelah transfer, konfirmasikan pembayaran Anda.
       `;
       buttonDiv.innerHTML = `<a href="confirmPembayaran.html" class="back-button"><i class="fas fa-check-circle"></i> Konfirmasi Pembayaran</a>`;
-      break;
-
-    case "cod":
-      content = `
-        <p><i class="fas fa-truck"></i> <strong>Cash on Delivery (COD)</strong></p>
-        Pesanan Anda akan diproses dan dibayar saat barang sampai.<br><br>
-        Mohon siapkan uang pas sebesar <b>Rp 230.000</b> kepada kurir.<br><br>
-
-        <form onsubmit="handleCODConfirm(event)">
-          <label><i class="fas fa-user"></i> Nama Penerima *</label>
-          <input type="text" id="nama" required>
-
-          <label><i class="fas fa-map-marker-alt"></i> Alamat Lengkap *</label>
-          <textarea id="alamat" required></textarea>
-
-          <label><i class="fas fa-phone"></i> Nomor HP *</label>
-          <input type="tel" id="telepon" required>
-
-          <button type="submit" class="submit-button"><i class="fab fa-whatsapp"></i> Konfirmasi COD</button>
-        </form>
-      `;
       break;
 
     default:
