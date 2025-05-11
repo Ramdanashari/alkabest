@@ -495,10 +495,10 @@ select.form-control {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.download-button:hover {
+/* .download-button:hover {
     background-color: #3182ce;
     transform: translateY(-2px);
-}
+} */
 .key-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -560,4 +560,3 @@ select.form-control {
         border-bottom: 1px solid #e2e8f0;
     }
 }
-
