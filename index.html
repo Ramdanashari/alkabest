@@ -70,9 +70,9 @@
                         </div>
                     </form>
                     <script>
-                        const provinsiSelect = document.getElementById("provinsi");
-                        const kabupatenSelect = document.getElementById("kabupaten");
-                        const kecamatanSelect = document.getElementById("kecamatan");
+                        const provinsiSelect = document.getElementById("provinsi").value;
+                        const kabupatenSelect = document.getElementById("kabupaten").value;
+                        const kecamatanSelect = document.getElementById("kecamatan").value;
                       
                         // Fetch provinsi
                         fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
@@ -227,12 +227,7 @@
                 <span class="date">Diupload: 3 Mei 2025</span>
             </div>
         </div>
-        <div class="video-action">
-            <button class="download-button" onclick="downloadPdf()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                Download Manual PDF
-            </button>
-        </div>
+
     </div>
     <div class="key-steps">
         <div class="step-item">
