@@ -1,166 +1,129 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Konfirmasi Pembayaran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #3b60ff;
-      --primary-hover: #2e4dd4;
-      --background: #f0f4f8;
-      --text: #1f2937;
-      --border: #d1d5db;
-      --white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
     .container {
-      background-color: var(--white);
-      max-width: 480px;
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      padding: 32px;
+      max-width: 500px;
+      background-color: #fff;
+      margin: 50px auto;
+      padding: 30px 40px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 24px;
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--primary);
+      color: #333;
+      margin-bottom: 25px;
     }
 
-    form label {
+    label {
+      font-weight: bold;
       display: block;
-      font-weight: 500;
-      margin-bottom: 8px;
-      margin-top: 16px;
+      margin-bottom: 5px;
+      color: #555;
     }
 
-    input,
-    select {
+    input {
       width: 100%;
-      padding: 10px 14px;
-      font-size: 15px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-top: 4px;
-      transition: border-color 0.2s;
-    }
-
-    input[type="file"] {
-      padding: 8px;
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .required {
-      color: red;
-      margin-left: 4px;
-    }
-
-    .note {
-      font-size: 13px;
-      color: #6b7280;
-      margin-top: 6px;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      background-color: var(--primary);
-      color: var(--white);
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
       font-size: 16px;
-      font-weight: 600;
-      margin-top: 28px;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #4299e1 0%, #6b46c1  100%);
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
 
-    .button:hover {
-      background-color: var(--primary-hover);
+    button:hover {
+      opacity: 0.9;
     }
 
-    .footer {
+    .thank-you-message {
+      display: none;
       text-align: center;
-      font-size: 13px;
-      color: #9ca3af;
-      margin-top: 24px;
-    }
-
-    .footer img {
-      height: 14px;
-      vertical-align: middle;
-      margin-left: 4px;
+      font-size: 18px;
+      color: green;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Konfirmasi Pembayaran Anda</h2>
+    
+    <form id="paymentForm" action="https://formsubmit.co/ramdhanashari1@gmail.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="Konfirmasi Pembayaran Baru!">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
 
-<div class="container">
-  <h2>Konfirmasi Pembayaran</h2>
-  <form action="#" method="post" enctype="multipart/form-data">
-    <label for="bukti">ID Transaksi<span class="required">*</span></label>
-    <input type="text" id="bukti" name="bukti" placeholder="Masukkan ID Transaksi" required>
+      <label>ID Transaksi:</label>
+      <input type="text" name="id_transaksi" required>
 
-    <label for="nama">Atas Nama Rekening<span class="required">*</span></label>
-    <input type="text" id="nama" name="nama" placeholder="Nama Pemilik Rekening" required>
+      <label>Nama Rekening Pengirim:</label>
+      <input type="text" name="nama_rekening" required>
 
-    <label for="transfer_ke">Transfer ke<span class="required">*</span></label>
-    <select id="transfer_ke" name="transfer_ke" required>
-      <option value="">-- Pilih Bank / E-Wallet --</option>
-      <option value="Mandiri">Mandiri</option>
-      <option value="BCA">BCA</option>
-      <option value="BNI">BNI</option>
-      <option value="BRI">BRI</option>
-      <option value="OVO">OVO</option>
-      <option value="DANA">DANA</option>
-      <option value="GoPay">GoPay</option>
-    </select>
+      <label>Tanggal Transfer:</label>
+      <input type="date" name="tanggal_transfer" required>
 
-    <label for="tanggal">Tanggal Transfer<span class="required">*</span></label>
-    <input type="date" id="tanggal" name="tanggal" required>
+      <label>Jumlah Transfer (Rp):</label>
+      <input type="number" name="jumlah_transfer" required>
 
-    <label for="jumlah">Jumlah Transfer<span class="required">*</span></label>
-    <input type="number" id="jumlah" name="jumlah" placeholder="Contoh: 10000" required>
+      <label>Upload Bukti Transfer:</label>
+      <input type="file" name="bukti_transfer" accept="image/*,application/pdf" required>
 
-    <label for="upload">Upload Bukti Transfer<span class="required">*</span></label>
-    <input type="file" id="upload" name="upload" required accept="image/*,.pdf">
-    <div class="note">Format: JPG, PNG, PDF. Maksimal 5MB.</div>
+      <button type="submit">Kirim</button>
+    </form>
 
-    <button type="submit" class="button">Kirim</button>
-  </form>
-
-  <div class="footer">
-    Powered by <img src="https://formulir.io/assets/images/logo-gray.svg" alt="Formulir Logo" /> &copy; 2025
+    <div class="thank-you-message" id="thankYouMsg">
+      Terima kasih telah membeli produk kami!
+    </div>
   </div>
-</div>
 
+  <script>
+    const form = document.getElementById('paymentForm');
+    const thankYou = document.getElementById('thankYouMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // Mencegah reload langsung
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = "none";
+          thankYou.style.display = "block";
+        } else {
+          alert("Gagal mengirim formulir. Coba lagi.");
+        }
+      }).catch(error => {
+        alert("Terjadi kesalahan!");
+      });
+    });
+  </script>
 </body>
 </html>
