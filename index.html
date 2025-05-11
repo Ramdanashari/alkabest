@@ -154,33 +154,38 @@
                         </div>
                     </div>
                         <button type="submit" class="checkout-button" onclick="submitPayment()">Beli Sekarang</button>
-                    <script>
-                    function submitPayment() {
-                        const nama = document.getElementById("nama").value;
-                        const hp = document.getElementById("hp").value;
-                        const alamat = document.getElementById("alamat").value;
-                        const provinsi = document.getElementById("provinsi");
-                        const kabupaten = document.getElementById("kabupaten");
-                        const kecamatan = document.getElementById("kecamatan");
 
-                        const metodePembayaran = document.querySelector('input[name="payment"]:checked').value;
+<div id="customAlert" style="display:none; background:#ffe0e0; color:#a00; padding:15px; margin-top:15px; border-radius:6px; text-align:center;">
+  Mohon lengkapi semua data pengiriman terlebih dahulu.
+</div>
 
-                        if (!nama || !hp || !alamat || !provinsi.value || !kabupaten.value || !kecamatan.value) {
-                        alert("Mohon lengkapi semua data pengiriman terlebih dahulu.");
-                        return;
-                        }
+<script>
+function submitPayment() {
+  const nama = document.getElementById("nama").value;
+  const hp = document.getElementById("hp").value;
+  const alamat = document.getElementById("alamat").value;
+  const provinsi = document.getElementById("provinsi");
+  const kabupaten = document.getElementById("kabupaten");
+  const kecamatan = document.getElementById("kecamatan");
 
-                        localStorage.setItem("nama", nama);
-                        localStorage.setItem("hp", hp);
-                        localStorage.setItem("alamat", alamat);
-                        localStorage.setItem("provinsi", provinsi.options[provinsi.selectedIndex].text);
-                        localStorage.setItem("kabupaten", kabupaten.options[kabupaten.selectedIndex].text);
-                        localStorage.setItem("kecamatan", kecamatan.options[kecamatan.selectedIndex].text);
-                        localStorage.setItem("metode", metodePembayaran);
+  const metodePembayaran = document.querySelector('input[name="payment"]:checked')?.value;
 
-                        window.location.href = `pembayaran.html?metode=${metodePembayaran}`;
-                    }
-                    </script>
+  if (!nama || !hp || !alamat || !provinsi.value || !kabupaten.value || !kecamatan.value || !metodePembayaran) {
+    document.getElementById("customAlert").style.display = "block";
+    return;
+  }
+
+  localStorage.setItem("nama", nama);
+  localStorage.setItem("hp", hp);
+  localStorage.setItem("alamat", alamat);
+  localStorage.setItem("provinsi", provinsi.options[provinsi.selectedIndex].text);
+  localStorage.setItem("kabupaten", kabupaten.options[kabupaten.selectedIndex].text);
+  localStorage.setItem("kecamatan", kecamatan.options[kecamatan.selectedIndex].text);
+  localStorage.setItem("metode", metodePembayaran);
+
+  window.location.href = `pembayaran.html?metode=${metodePembayaran}`;
+}
+</script>
 
                 </div>
                 <div class="product-info">
