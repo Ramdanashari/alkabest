@@ -45,7 +45,7 @@
 
     button {
       width: 100%;
-      background: linear-gradient(135deg, #4299e1 0%, #6b46c1  100%);
+      background: linear-gradient(135deg, #4299e1 0%, #6b46c1 100%);
       color: white;
       padding: 12px;
       font-size: 16px;
@@ -76,6 +76,8 @@
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
 
+      <!-- Hidden inputs for localStorage data (akan ditambahkan lewat JavaScript) -->
+
       <label>ID Transaksi:</label>
       <input type="text" name="id_transaksi" required>
 
@@ -103,26 +105,22 @@
     const form = document.getElementById('paymentForm');
     const thankYou = document.getElementById('thankYouMsg');
 
+    // Tambahkan data localStorage ke form sebagai hidden input sebelum submit
     form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Mencegah reload langsung
-
-      const formData = new FormData(form);
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
+      // Tambahkan data dari localStorage sebagai hidden input
+      const fields = ["nama", "hp", "alamat", "provinsi", "kabupaten", "kecamatan", "metode"];
+      fields.forEach(key => {
+        const value = localStorage.getItem(key);
+        if (value) {
+          const hiddenInput = document.createElement("input");
+          hiddenInput.type = "hidden";
+          hiddenInput.name = key;
+          hiddenInput.value = value;
+          form.appendChild(hiddenInput);
         }
-      }).then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          thankYou.style.display = "block";
-        } else {
-          alert("Gagal mengirim formulir. Coba lagi.");
-        }
-      }).catch(error => {
-        alert("Terjadi kesalahan!");
       });
+
+      // Setelah data ditambahkan, biarkan formsubmit.co yang handle pengiriman
     });
   </script>
 </body>
