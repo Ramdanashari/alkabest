@@ -17,10 +17,10 @@ body {
     background-color: transparent;
 }
 header {
-    background: linear-gradient(135deg, #6b46c1 0%, #4299e1 100%);
+    background: linear-gradient(135deg, #4299e1 0%, #6b46c1  100%);
     color: white;
     padding: 20px 30px;
-    border-radius: 15px 15px 0 0;
+    border-radius: 7px 7px 0 0;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
@@ -33,11 +33,11 @@ header {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 .logo span {
-    color: #48BB78;
+    color: #9a11e9;
 }
 .tagline {
     font-size: 14px;
-    max-width: 60%;
+    max-width: 30%;
     font-style: italic;
 }
 .content-wrapper {
@@ -69,8 +69,7 @@ header {
     transition: all 0.3s ease;
 }
 .tab.active {
-    background-color: #EBF8FF;
-    box-shadow: 0 2px 4px rgba(66, 153, 225, 0.2);
+    background-color: #fefefe;
 }
 .tab:hover:not(.active) {
     background-color: #f0f4f8;
@@ -221,6 +220,7 @@ select.form-control {
 .product-image {
     width: 100%;
     height: 500px;
+    background-color: #edf2f7;
     background: linear-gradient(135deg, #f6e05e 0%, #ed8936 100%);
     display: flex;
     align-items: center;
@@ -235,36 +235,12 @@ select.form-control {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("assets/alka.jpg");
-    background-size: cover; /* atau cover kalau mau isi penuh */
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    transition: background-image 1s ease-in-out;
 }
 
-.product-image-text {
-    position: relative;
-    z-index: 2;
-    color: white;
-    font-size: 32px;
-    font-weight: 800;
-    text-shadow: 1px 2px 3px rgba(0,0,0,0.3);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-.product-image-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: white;
-    color: #ed8936;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 3;
-}
 
 /* Benefits Section */
 .benefits {
@@ -459,6 +435,121 @@ select.form-control {
     color: #4a5568;
     line-height: 1.5;
 }
+.video-section {
+    width: 100%;
+    margin-top: 30px;
+    padding: 25px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.video-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+#alkabest-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+.video-description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+.video-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+.video-stats {
+    font-size: 13px;
+    color: #718096;
+    display: flex;
+    gap: 15px;
+}
+.download-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: #4299e1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.download-button:hover {
+    background-color: #3182ce;
+    transform: translateY(-2px);
+}
+.key-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #4299e1;
+    transition: all 0.3s ease;
+}
+.step-item:hover {
+    background-color: #EBF8FF;
+    transform: translateY(-2px);
+}
+.step-number {
+    width: 28px;
+    height: 28px;
+    background-color: #4299e1;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+.step-text {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .video-description {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .video-action {
+        margin-top: 15px;
+    }
+    .key-steps {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 768px) {
     .main-content {
@@ -469,3 +560,4 @@ select.form-control {
         border-bottom: 1px solid #e2e8f0;
     }
 }
+
