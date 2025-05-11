@@ -31,48 +31,42 @@
             <div class="main-content">
                 <div class="checkout-form">
                     <div class="section-title">Data Penerima</div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">No. Handphone</label>
-                        <input type="text" class="form-control" placeholder="Contoh: 08123456789" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Alamat Lengkap</label>
-                        <input type="text" class="form-control" placeholder="Masukkan alamat lengkap Anda" required>
-                    </div>
-                    
-                    <form id="formAlamat">
+                    <form id="checkoutForm">
                         <div class="form-group">
-                          <label class="form-label">Provinsi</label>
-                          <select class="form-control" id="provinsi" required>
-                            <option value="">Pilih Provinsi</option>
-                          </select>
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
                         </div>
-                      
                         <div class="form-group">
-                          <label class="form-label">Kota/Kabupaten</label>
-                          <select class="form-control" id="kabupaten" required>
-                            <option value="">Pilih Kota/Kabupaten</option>
-                          </select>
+                            <label class="form-label">No. Handphone</label>
+                            <input type="text" id="no hp" class="form-control" placeholder="Contoh: 08123456789" required>
                         </div>
-                      
                         <div class="form-group">
-                          <label class="form-label">Kecamatan</label>
-                          <select class="form-control" id="kecamatan" required>
-                            <option value="">Pilih Kecamatan</option>
-                          </select>
+                            <label class="form-label">Alamat Lengkap</label>
+                            <input type="text" id="alamat" class="form-control" placeholder="Masukkan alamat lengkap Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Provinsi</label>
+                            <select class="form-control" id="provinsi" required>
+                                <option value="">Pilih Provinsi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Kota/Kabupaten</label>
+                            <select class="form-control" id="kabupaten" required>
+                                <option value="">Pilih Kota/Kabupaten</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Kecamatan</label>
+                            <select class="form-control" id="kecamatan" required>
+                                <option value="">Pilih Kecamatan</option>
+                            </select>
                         </div>
                     </form>
                     <script>
-                        const provinsiSelect = document.getElementById("provinsi").value;
-                        const kabupatenSelect = document.getElementById("kabupaten").value;
-                        const kecamatanSelect = document.getElementById("kecamatan").value;
+                        const provinsiSelect = document.getElementById("provinsi");
+                        const kabupatenSelect = document.getElementById("kabupaten");
+                        const kecamatanSelect = document.getElementById("kecamatan");
                       
                         // Fetch provinsi
                         fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
@@ -128,6 +122,21 @@
                     <div class="shipping-info">
                         <strong>Info Pengiriman:</strong> Biaya aplikasi sudah termasuk ongkos pengiriman ke alamat yang dipesan. Metode pengiriman menggunakan estimasi terbaik dari JNE, J&T, Sicepat, atau kurir lainnya.
                     </div>
+                                        <div class="summary-box">
+                        <div class="summary-header">Ringkasan Pesanan</div>
+                        <div class="summary-row">
+                            <div>ALKABEST (1pc)</div>
+                            <div class="price">Rp230.000</div>
+                        </div>
+                        <div class="summary-row">
+                            <div>Ongkos Kirim</div>
+                            <div class="price">Gratis</div>
+                        </div>
+                        <div class="summary-row total-row">
+                            <div>Total Pembayaran</div>
+                            <div class="price">Rp230.000</div>
+                        </div>
+                    </div>
 
                     <div class="payment-methods">
                         <div class="section-title">Metode Pembayaran</div>
@@ -144,15 +153,37 @@
                             <label for="cod">Cash on Delivery (COD)</label>
                         </div>
                     </div>
-                        <button class="checkout-button" onclick="submitPayment()">Beli Sekarang</button>
-                        <script>
-                            function submitPayment() {
-                              const selected = document.querySelector('input[name="payment"]:checked').value;
-                              window.location.href = `pembayaran.html?metode=${selected}`;
-                            }
-                          </script>
+                        <button type="submit" class="checkout-button" onclick="submitPayment()">Beli Sekarang</button>
+                    <script>
+                    function submitPayment() {
+                        const nama = document.getElementById("nama").value;
+                        const hp = document.getElementById("hp").value;
+                        const alamat = document.getElementById("alamat").value;
+                        const provinsi = document.getElementById("provinsi");
+                        const kabupaten = document.getElementById("kabupaten");
+                        const kecamatan = document.getElementById("kecamatan");
+
+                        const metodePembayaran = document.querySelector('input[name="payment"]:checked').value;
+
+                        if (!nama || !hp || !alamat || !provinsi.value || !kabupaten.value || !kecamatan.value) {
+                        alert("Mohon lengkapi semua data pengiriman terlebih dahulu.");
+                        return;
+                        }
+
+                        localStorage.setItem("nama", nama);
+                        localStorage.setItem("hp", hp);
+                        localStorage.setItem("alamat", alamat);
+                        localStorage.setItem("provinsi", provinsi.options[provinsi.selectedIndex].text);
+                        localStorage.setItem("kabupaten", kabupaten.options[kabupaten.selectedIndex].text);
+                        localStorage.setItem("kecamatan", kecamatan.options[kecamatan.selectedIndex].text);
+                        localStorage.setItem("metode", metodePembayaran);
+
+                        window.location.href = `pembayaran.html?metode=${metodePembayaran}`;
+                    }
+                    </script>
+
                 </div>
-            <div class="product-info">
+                <div class="product-info">
                     <div class="product-card">
                         <div class="product-image">
                             <div class="product-image-overlay" id="slideshow"></div>
@@ -193,61 +224,19 @@
                         </div>
                     </div>
 
-                    <div class="summary-box">
-                        <div class="summary-header">Ringkasan Pesanan</div>
-                        <div class="summary-row">
-                            <div>ALKABEST (1pc)</div>
-                            <div class="price">Rp230.000</div>
-                        </div>
-                        <div class="summary-row">
-                            <div>Ongkos Kirim</div>
-                            <div class="price">Gratis</div>
-                        </div>
-                        <div class="summary-row total-row">
-                            <div>Total Pembayaran</div>
-                            <div class="price">Rp230.000</div>
-                        </div>
-                    </div>
+
+                    <div class="video-section">
+            <div class="section-title">Cara Penggunaan ALKABEST</div>
+            <div class="video-container">
+                <video id="alkabest-video" controls poster="assets/video-thumbnail.jpg">
+                    <source src="assets/vidalka.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
                 </div>
             </div>
 
-            <div class="video-section">
-    <div class="section-title">Cara Penggunaan ALKABEST</div>
-    <div class="video-container">
-        <video id="alkabest-video" controls poster="assets/video-thumbnail.jpg">
-            <source src="assets/vidalka.mp4" type="video/mp4">
-            Browser Anda tidak mendukung tag video.
-        </video>
-    </div>
-    <div class="video-description">
-        <div class="video-info">
-            <div class="video-title">Tutorial Penggunaan ALKABEST</div>
-            <div class="video-stats">
-                <span class="views">2.4K views</span>
-                <span class="date">Diupload: 3 Mei 2025</span>
-            </div>
-        </div>
-
-    </div>
-    <div class="key-steps">
-        <div class="step-item">
-            <div class="step-number">1</div>
-            <div class="step-text">Masukkan ALKABEST ke dalam botol atau gelas berisi air mineral biasa</div>
-        </div>
-        <div class="step-item">
-            <div class="step-number">2</div>
-            <div class="step-text">Tunggu selama 10 menit agar proses alkalisasi sempurna</div>
-        </div>
-        <div class="step-item">
-            <div class="step-number">3</div>
-            <div class="step-text">Air siap diminum dengan kandungan alkali pH 8,5-9,5</div>
-        </div>
-        <div class="step-item">
-            <div class="step-number">4</div>
-            <div class="step-text">Konsumsi 2-3 liter air alkali setiap hari untuk hasil optimal</div>
-        </div>
-    </div>
-</div>
 
             <div class="testimonials">
                 <div class="section-title">Testimonial Pelanggan</div>
