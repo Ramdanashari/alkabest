@@ -13,4 +13,4 @@
   }
 
   changeImage(); // tampilkan pertama
-  setInterval(changeImage, 5000); // ganti gambar setiap 3 detik
+  setInterval(changeImage, 3000); // ganti gambar setiap 3 detik
